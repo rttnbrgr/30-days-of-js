@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Watchface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="clock">
+        <div class="clock--face">
+            <div class="hand hand--hour"></div>
+            <div class="hand hand--minute"></div>
+            <div class="hand hand--second"></div>
+        </div>
+    </div>
+
+<script>
+
+    const handHour = document.querySelector('.hand--hour');
+    const handMinute = document.querySelector('.hand--minute');
+    const handSecond = document.querySelector('.hand--second');
+
+    function setDate() {
+        const now = new Date();
+        const startVertical = 90;
+        
+        // Seconds
+        const seconds = now.getSeconds();
+        const secondsDegrees = ((seconds / 60) * 360) + startVertical;
+        handSecond.style.transform = `rotate(${secondsDegrees}deg)`;
+        
+        // Minutes
+        const minutes = now.getMinutes();
+        const minutesDegrees = ((minutes / 60) * 360) + startVertical;
+        handMinute.style.transform = `rotate(${minutesDegrees}deg)`;
+        
+        // Hours
+        const hours = now.getHours();
+        let hoursConverted = hours;        
+        if (hours > 12) hoursConverted = hours - 12;
+        const hoursDegrees = ((hoursConverted / 12) * 360) + startVertical;
+        handHour.style.transform = `rotate(${hoursDegrees}deg)`;
+
+        // Logs:
+        console.log(`TIME: ${hoursConverted}:${minutes}.${seconds}`);
+
+    }
+
+    setInterval(setDate, 1000)
+
+</script>    
+
+</body>
+</html>
